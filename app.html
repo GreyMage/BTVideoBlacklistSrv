@@ -1,6 +1,6 @@
-<script src="http://127.0.0.1:8181/socket.io/socket.io.js"></script>
+<script src="http://cades.me:8181/socket.io/socket.io.js"></script>
 <script>
-  var socket = io("http://127.0.0.1:8181"); // TIP: io() with no args does auto-discovery
+  var socket = io("http://cades.me:8181"); // TIP: io() with no args does auto-discovery
   socket.on('connect', function () { // TIP: you can avoid listening on `connect` and listen on events directly too!
     socket.emit("identify",{mid:getMetricsId()},function(success,msg){
 
