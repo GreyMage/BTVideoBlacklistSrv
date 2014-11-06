@@ -1,0 +1,35 @@
+<script src="http://127.0.0.1:8181/socket.io/socket.io.js"></script>
+<script>
+  var socket = io("http://127.0.0.1:8181"); // TIP: io() with no args does auto-discovery
+  socket.on('connect', function () { // TIP: you can avoid listening on `connect` and listen on events directly too!
+    socket.emit("identify",{mid:getMetricsId()},function(success,msg){
+
+      if(success){
+        socket.emit("dump",{
+          blacklistVids:[
+            {videoid:"boop",videotype:"yt"}
+          ]
+        })
+      } else {
+        throw msg;
+      }
+
+    });
+  });
+
+  var getMetricsId = function(){
+    var mid = localStorage.getItem("cades.metricsid");
+    if(!mid){
+      localStorage.setItem("cades.metricsid",uid(36));
+      return getMetricsId();
+    }
+    return mid;
+  }
+
+  var uid = function(digits){
+    var x = Math.floor(Math.random() * 36).toString(36);
+    if(digits > 1) return x + uid(digits-1);
+    return x;
+  }
+
+</script>
